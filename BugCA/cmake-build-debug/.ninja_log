@@ -1,0 +1,5 @@
+# ninja log v5
+3	194	7345783366408470	build.ninja	cc37458dee2941fe
+10	868	7345730390715855	CMakeFiles/BugCA.dir/main.cpp.obj	c3b47113b6a80da7
+884	1313	7345730395155024	BugCA.exe	456ec410e6f29c3c
+46	883	7345730390860732	CMakeFiles/BugCA.dir/Bug.cpp.obj	1e3067fcad084d0f

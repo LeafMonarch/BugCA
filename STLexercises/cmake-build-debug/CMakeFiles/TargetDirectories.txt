@@ -1,0 +1,3 @@
+C:/Users/USER/OneDrive - Dundalk Institute of Technology/Better C++/STLexercises/cmake-build-debug/CMakeFiles/STLexercises.dir
+C:/Users/USER/OneDrive - Dundalk Institute of Technology/Better C++/STLexercises/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/USER/OneDrive - Dundalk Institute of Technology/Better C++/STLexercises/cmake-build-debug/CMakeFiles/rebuild_cache.dir

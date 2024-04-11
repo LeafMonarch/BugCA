@@ -1,0 +1,3 @@
+C:/Users/USER/OneDrive - Dundalk Institute of Technology/Better C++/BugCA/cmake-build-debug/CMakeFiles/BugCA.dir
+C:/Users/USER/OneDrive - Dundalk Institute of Technology/Better C++/BugCA/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/USER/OneDrive - Dundalk Institute of Technology/Better C++/BugCA/cmake-build-debug/CMakeFiles/rebuild_cache.dir

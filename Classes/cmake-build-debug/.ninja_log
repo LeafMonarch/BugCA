@@ -1,0 +1,18 @@
+# ninja log v5
+3	347	7327207534729751	CMakeFiles/Classes.dir/Student.cpp.obj	2bbf598b49ef41b2
+4	441	7345352722307567	CMakeFiles/Classes.dir/main.cpp.obj	a0bf2a3db977bea5
+442	537	7345352723230972	Classes.exe	46c343e8f9ffee5a
+9	388	7327243109871749	CMakeFiles/Classes.dir/DayType.cpp.obj	5638f3be376df20d
+3	394	7345301959613123	CMakeFiles/Classes.dir/ClockType.cpp.obj	4032e176d9275e5c
+9	377	7345352642924261	CMakeFiles/Classes.dir/ComplexNumber.cpp.obj	f48dfe80f4048997
+3	455	7345357339048379	CMakeFiles/Classes.dir/main.cpp.obj	a0bf2a3db977bea5
+10	463	7345357339124239	CMakeFiles/Classes.dir/BufferedReader.cpp.obj	3dea9d8bff4c276
+465	581	7345357340275481	Classes.exe	edbd45f3d2a97196
+3	431	7345357447465470	CMakeFiles/Classes.dir/main.cpp.obj	a0bf2a3db977bea5
+431	534	7345357448464687	Classes.exe	edbd45f3d2a97196
+11	483	7345359930943664	CMakeFiles/Classes.dir/BufferedReader.cpp.obj	3dea9d8bff4c276
+4	520	7345359931305401	CMakeFiles/Classes.dir/main.cpp.obj	a0bf2a3db977bea5
+521	622	7345359932300087	Classes.exe	edbd45f3d2a97196
+10	509	7345361993455496	CMakeFiles/Classes.dir/BufferedReader.cpp.obj	3dea9d8bff4c276
+4	568	7345361994058656	CMakeFiles/Classes.dir/main.cpp.obj	a0bf2a3db977bea5
+568	681	7345361995160602	Classes.exe	edbd45f3d2a97196
