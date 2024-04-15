@@ -15,6 +15,14 @@ enum class Direction {North, East, South, West};
 struct position
 {
     int x, y;
+
+    int getX() const;
+
+    void setX(int x);
+
+    int getY() const;
+
+    void setY(int y);
 };
 
 class Bug {

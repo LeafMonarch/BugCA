@@ -4,6 +4,11 @@
 
 #include "Hopper.h"
 
+Hopper::Hopper(unsigned int id, pair<int, int> position, Direction dir, unsigned int size, bool alive, list<pair<int,int>> path, int hopLength)
+        : Bug(id, position, dir, size, alive, path), hopLength(hopLength) {
+    // Additional initialization for Hopper specific members
+}
+
 void Hopper::move() {
     if(isWayBlocked()) {
         srand(time(nullptr)); // Seed for rand() function

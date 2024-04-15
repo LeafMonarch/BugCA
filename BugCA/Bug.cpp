@@ -24,13 +24,14 @@ void Bug::setId(unsigned int id) {
     Bug::id = id;
 }
 
-const pair<int, int> &Bug::getPosition() const {
-    return position;
-}
-
-void Bug::setPosition(const pair<int, int> &position) {
-    Bug::position = position;
-}
+//  I hashed out get & set for position for now
+//const pair<int, int> &Bug::getPosition() const {
+//    return position;
+//}
+//
+//void Bug::setPosition(const pair<int, int> &position) {
+//    Bug::position = position;
+//}
 
 Direction Bug::getDir() const {
     return dir;
@@ -121,4 +122,20 @@ bool Bug::isWayBlocked(){
     else{
         return false;
     }
+}
+
+int position::getX() const {
+    return x;
+}
+
+void position::setX(int x) {
+    position::x = x;
+}
+
+int position::getY() const {
+    return y;
+}
+
+void position::setY(int y) {
+    position::y = y;
 }

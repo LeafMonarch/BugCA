@@ -12,6 +12,8 @@ private:
     int hopLength;
 
 public:
+    Hopper(unsigned int id = 0, pair<int, int> position = {0,0}, Direction dir = Direction::North, unsigned int size = 10, bool alive = true, list<pair<int,int>> path = {}, int hopLength = 0);
+
     void move();
     bool isWayBlocked();
 };
