@@ -8,12 +8,16 @@
 #define BUGCA_CRAWLER_H
 
 
-class Crawler: protected  Bug{
+class Crawler: public Bug{
 
 
 public:
+    Crawler(int id, pair<int, int> position, Direction dir, int size);
+
     void move();
     bool isWayBlocked();
+
+    void display_all_bug_details() const override;
 };
 
 

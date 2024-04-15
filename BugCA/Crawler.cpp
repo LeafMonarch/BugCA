@@ -4,6 +4,14 @@
 
 #include "Crawler.h"
 
+//Crawler::Crawler(int id, pair<int, int> position, Direction dir, int size):Bug(id, {x,y}, dir,size){
+//
+//}
+
+Crawler::Crawler(int id, pair<int, int> position, Direction dir, int size){
+
+}
+
 
 void Crawler::move() {
     if(isWayBlocked()) {
@@ -61,4 +69,20 @@ bool Crawler::isWayBlocked(){
     else{
         return false;
     }
+}
+
+void Crawler::display_all_bug_details() const {
+
+        cout << "Crawler, ID: " + to_string(id) + ", Position (" +to_string(position.first) + ", "
+                +to_string(position.second) + ")" + ", Size: " + to_string(size) + ", Direction: " +
+                Direction_string(dir);
+        if (alive)
+        {
+            cout << ", Alive.";
+        }
+        else
+        {
+            cout << ", Dead.";
+        }
+
 }

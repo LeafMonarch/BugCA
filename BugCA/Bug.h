@@ -4,7 +4,6 @@
 #include <iostream>
 #include <utility>
 #include <list>
-
 using namespace std;
 
 #ifndef BUGCA_BUG_H
@@ -12,18 +11,21 @@ using namespace std;
 
 enum class Direction {North, East, South, West};
 
-struct position
-{
-    int x, y;
+inline string Direction_string(Direction direction) {
+    switch (direction) {
+        case Direction::North:
+            return "NORTH";
+        case Direction::South:
+            return "SOUTH";
+        case Direction::East:
+            return "EAST";
+        case Direction::West:
+            return "WEST";
+        default:
+            return "No Direction";
+    }
+}
 
-    int getX() const;
-
-    void setX(int x);
-
-    int getY() const;
-
-    void setY(int y);
-};
 
 class Bug {
 protected:
@@ -33,16 +35,22 @@ protected:
     unsigned int size;
     bool alive;
     list<pair<int,int>> path;
+
 public:
-    Bug(unsigned int id = 0, pair<int, int> position = {0,0}, Direction dir = Direction::North, unsigned int size = 10, bool alive = true, list<pair<int,int>> path = {});
+    Bug(unsigned int id = 0, pair<int, int> position = {0,0}, Direction dir = Direction::North, unsigned int size = 1, bool alive = true, list<pair<int,int>> path = {});
 
     virtual void move() = 0;
-    bool isWayBlocked();
+    virtual bool isWayBlocked();
 
     unsigned int getId() const;
     void setId(unsigned int id);
+
     const pair<int, int> &getPosition() const;
     void setPosition(const pair<int, int> &position);
+
+//    const Position &getPosition() const;
+//    void setPosition(const Position &position);
+
     Direction getDir() const;
     void setDir(Direction dir);
     unsigned int getSize() const;
@@ -51,6 +59,8 @@ public:
     void setAlive(bool alive);
     const list<pair<int, int>> &getPath() const;
     void setPath(const list<pair<int, int>> &path);
+
+    virtual void display_all_bug_details() const =0;
 };
 
 

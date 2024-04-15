@@ -4,11 +4,21 @@
 
 #include "Hopper.h"
 
-Hopper::Hopper(unsigned int id, pair<int, int> position, Direction dir, unsigned int size, bool alive, list<pair<int,int>> path, int hopLength)
-        : Bug(id, position, dir, size, alive, path), hopLength(hopLength) {
-    // Additional initialization for Hopper specific members
-}
+//Hopper::Hopper(unsigned int id, pair<int, int> position, Direction dir, unsigned int size, bool alive, list<pair<int,int>> path, int hopLength)
+//        : Bug(id, position, dir, size, alive, path), hopLength(hopLength) {
+//    // Additional initialization for Hopper specific members
+//}
 
+Hopper::Hopper(int id, pair<int, int> position, Direction dir, int size, int hop_length) {
+
+}
+//Hopper::Hopper(int id, pair<int, int> position, Direction dir, int size, int hop_length):Bug(id, {x,y}, dir,size,hop_length) {
+//
+//}
+
+//Hopper::Hopper(int id, pair<int, int> position, Direction dir, int size, int hop_length) {
+//
+//}
 void Hopper::move() {
     if(isWayBlocked()) {
         srand(time(nullptr)); // Seed for rand() function
@@ -66,3 +76,6 @@ bool Hopper::isWayBlocked(){
         return false;
     }
 }
+
+
+
