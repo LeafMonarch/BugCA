@@ -8,14 +8,20 @@
 
 
 class Hopper: public Bug{
-    int hop_length{};
+    int hop_length;
 
 public:
 //    Hopper(unsigned int id = 0, pair<int, int> position = {0,0}, Direction dir = Direction::North, unsigned int size = 10, bool alive = true, list<pair<int,int>> path = {}, int hopLength = 0);
     Hopper(int id, pair<int, int> position, Direction dir, int size, int hop_length);
 
-    void move();
-    bool isWayBlocked();
+    void move() override;
+    bool isWayBlocked() override;
+    void randomDir();
+    void display_all_bug_details() const override;
+
+    int getHopLength() const;
+
+    void setHopLength(int hopLength);
 };
 
 

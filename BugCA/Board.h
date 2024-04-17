@@ -25,6 +25,11 @@ public:
     Board();
     void initialize_board(vector<Bug*> &bug_vector);
     void display_bugs();
+    void tap_board();
+    void display_life_history_of_all_bugs();
+    void exit();
+    void display_all_cells();
+    void run_simulation();
 };
 
 
