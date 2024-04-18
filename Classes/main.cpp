@@ -6,6 +6,7 @@
 #include "ClockType.h"
 #include "ComplexNumber.h"
 #include "BufferedReader.h"
+#include "algorithm"
 
 using namespace std;
 
@@ -17,11 +18,25 @@ void question2();
 void question3();
 void question5();
 void question6();
+bool isThree(int i);
+void functionDemo();
 
+struct rangeFunctor
+{
+    int min, max;
+    rangeFunctor(int min, int max){
+        this-> min = min;
+        this-> max = max;
+    }
+
+    bool operator()(int i){
+        return i>=min && i<=max;
+    }
+};
 
 int main() {
     //every project can only have 1 main method
-    question6();
+    functionDemo();
     return 0;
 }
 void display_student_by_value(Student stud){
@@ -186,12 +201,28 @@ void question5(){
         cout << cn5 << " is equal to " << cn4 << endl;
     }
 }
+bool isThree(int i){
+    return i==3;
+}
+void functionDemo(){
+    vector<int> nums;
+    for(int i =0 ; i < 20; i++){
+        nums.push_back(1+i);
+    }
+    rangeFunctor funct(5,10);
+    int count = count_if(nums.begin(), nums.end(), rangeFunctor(5,10));
+    cout << count << endl;
+    int count2 = count_if(nums.begin(), nums.end(), rangeFunctor(5,10));
+    cout << count2 << endl;
+}
 
 void question6(){
     BufferedReader i("Input.txt");
-//    cout << i++ << endl;
+    cout << ++i << endl;
+    cout << i++ << endl;
     cout << i << endl;
-//    cout << ++i << endl;
-    cout << i << endl;
+
+    cout << i[5] << endl;
+    cout << i[10] << endl;
 }
 

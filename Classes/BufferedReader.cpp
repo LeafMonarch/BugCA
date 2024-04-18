@@ -26,3 +26,21 @@ BufferedReader BufferedReader::operator++(){
     }
     return *this;
 }
+
+BufferedReader BufferedReader::operator++(int u){
+    BufferedReader org = *this;
+    if(cursor < lines.size()-1){
+        cursor++;
+    }
+    return org;
+}
+
+const string& BufferedReader::operator[](int index){
+    if(index < lines.size()){
+        cursor = index;
+    }
+    else{
+        throw logic_error("index out of bounds");
+    }
+    return lines[index];
+}

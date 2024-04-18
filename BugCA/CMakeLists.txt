@@ -10,6 +10,8 @@ add_executable(BugCA main.cpp
         Crawler.cpp
         Board.h
         Board.cpp
+        Leaf_Hopper.h
+        Leaf_Hopper.cpp
 )
 
 set(SFML_STATIC_LIBRARIES TRUE)

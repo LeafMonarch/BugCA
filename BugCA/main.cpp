@@ -4,6 +4,7 @@
 #include "Bug.h"
 #include "Hopper.h"
 #include "Crawler.h"
+#include "Leaf_Hopper.h"
 #include <vector>
 #include <fstream>
 #include <sstream>
@@ -12,6 +13,7 @@ using namespace sf;
 
 void load_data_from_file(vector<Bug *> &bug_vector, const string &file_name, Board *board);
 void find_bug_by_id(vector<Bug *> &bug_vector);
+void graphic_user_interface();
 int main() {
     vector<Bug*> bug_vector;
     auto *board = new Board();
@@ -30,8 +32,7 @@ int main() {
         cout << "6. Exit" << endl;
         cout << "7. Display all Cells" << endl;
         cout << "8. Run Simulation" << endl;
-        cout << "9. New Bug Type" << endl;
-        cout << "10. Implement a GUI for the project using the SFML library." << endl;
+        cout << "9. Implement a GUI for the project using the SFML library." << endl;
 
         cout << "Please select an option . . . " << endl;
         cin >> menu_option;
@@ -67,6 +68,10 @@ int main() {
 
             case 8:
                 board -> run_simulation();
+                break;
+
+            case 9:
+                graphic_user_interface();
                 break;
 
             case 11:
@@ -131,6 +136,11 @@ void load_data_from_file(vector<Bug *> &bug_vector, const string &file_name, Boa
                             bug = new Crawler(id, make_pair(x, y), static_cast<Direction>(dir), size);
                             break;
                         }
+                        case 'L': { // Leaf_Hopper
+                            cout << "Creating Leaf Hopper bug." << endl;
+                            bug = new Leaf_Hopper(id, make_pair(x, y), static_cast<Direction>(dir), size);
+                            break;
+                        }
                         default:
                             cout << "Invalid bug type: " << bug_type << endl;
                             break;
@@ -155,5 +165,25 @@ void find_bug_by_id(vector<Bug *> &bug_vector){
         if(bug_id == b->getId()){
             b->display_all_bug_details();
         }
+    }
+}
+
+void graphic_user_interface(){
+    sf::RenderWindow window(sf::VideoMode(800, 800), "SFML works!");
+    while (window.isOpen())
+    {
+        sf::Event event;
+        while (window.pollEvent(event)){
+            if (event.type == sf::Event::Closed){//the close window button
+                window.close();
+            }
+
+
+
+
+
+        }
+        window.clear();
+        window.display();
     }
 }

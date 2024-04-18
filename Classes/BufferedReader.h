@@ -16,6 +16,8 @@ public:
     BufferedReader(string filename);
     friend ostream& operator<<(ostream& out, const BufferedReader& br);
     BufferedReader operator++();
+    BufferedReader operator++(int u);
+    const string& operator[](int index);
 };
 
 

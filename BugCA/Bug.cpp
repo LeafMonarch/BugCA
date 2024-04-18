@@ -7,13 +7,14 @@
 #include <cstdlib>
 #include <ctime>
 
-Bug::Bug(unsigned int id, pair<int, int>position, Direction dir, unsigned int size, bool alive, list<pair<int,int>> path){
+Bug::Bug(unsigned int id, pair<int, int>position, Direction dir, unsigned int size, bool alive, list<pair<int,int>> path, unsigned int eaten_by){
     this->id = id;
     this->position = position;
     this->dir = dir;
     this->size = size;
     this->alive = alive;
     this->path = path;
+    this->eaten_by = eaten_by;
 }
 
 unsigned int Bug::getId() const {
@@ -63,6 +64,14 @@ const list<pair<int, int>> &Bug::getPath() const {
 
 void Bug::setPath(const list<pair<int, int>> &path) {
     Bug::path = path;
+}
+
+unsigned int Bug::getEatenBy() const {
+    return eaten_by;
+}
+
+void Bug::setEatenBy(unsigned int eatenBy) {
+    eaten_by = eatenBy;
 }
 //void Bug::move(){
 //////    isWayBlocked();

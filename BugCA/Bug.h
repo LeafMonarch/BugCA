@@ -20,9 +20,14 @@ protected:
     unsigned int size;
     bool alive;
     list<pair<int,int>> path;
+    unsigned int eaten_by;
 
 public:
-    Bug(unsigned int id = 0, pair<int, int> position = {0,0}, Direction dir = Direction::North, unsigned int size = 1, bool alive = true, list<pair<int,int>> path = {});
+    Bug(unsigned int id = 0, pair<int, int> position = {0,0}, Direction dir = Direction::North, unsigned int size = 1, bool alive = true, list<pair<int,int>> path = {}, unsigned int eaten_by = 0);
+
+    unsigned int getEatenBy() const;
+
+    void setEatenBy(unsigned int eatenBy);
 
     virtual void move() = 0;
     virtual bool isWayBlocked() = 0;
