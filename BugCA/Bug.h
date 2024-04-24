@@ -13,7 +13,7 @@ using namespace std;
 
 class Bug {
 protected:
-
+    char bug_type;
     unsigned int id;
     pair<int, int>position;
     Direction dir;
@@ -23,7 +23,7 @@ protected:
     unsigned int eaten_by;
 
 public:
-    Bug(unsigned int id = 0, pair<int, int> position = {0,0}, Direction dir = Direction::North, unsigned int size = 1, bool alive = true, list<pair<int,int>> path = {}, unsigned int eaten_by = 0);
+    Bug(char bug_type='-', unsigned int id = 0, pair<int, int> position = {0,0}, Direction dir = Direction::North, unsigned int size = 1, bool alive = true, list<pair<int,int>> path = {}, unsigned int eaten_by = 0);
 
     unsigned int getEatenBy() const;
 
@@ -34,21 +34,24 @@ public:
     virtual void display_all_bug_details() const =0;
 
 
+    char getBugType() const;
+    void setBugType(char bugType);
+
     unsigned int getId() const;
     void setId(unsigned int id);
 
     const pair<int, int> &getPosition() const;
     void setPosition(const pair<int, int> &position);
 
-//    const Position &getPosition() const;
-//    void setPosition(const Position &position);
-
     Direction getDir() const;
     void setDir(Direction dir);
+
     unsigned int getSize() const;
     void setSize(unsigned int size);
+
     bool isAlive() const;
     void setAlive(bool alive);
+
     const list<pair<int, int>> &getPath() const;
     void setPath(const list<pair<int, int>> &path);
 };

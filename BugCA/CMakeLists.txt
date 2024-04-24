@@ -12,6 +12,8 @@ add_executable(BugCA main.cpp
         Board.cpp
         Leaf_Hopper.h
         Leaf_Hopper.cpp
+        Super_Bug.h
+        Super_Bug.cpp
 )
 
 set(SFML_STATIC_LIBRARIES TRUE)

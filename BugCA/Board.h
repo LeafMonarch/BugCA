@@ -15,12 +15,8 @@ class Board {
 
     vector<Bug*> bug_vector;
 
-//    Board(const vector<Bug *> &bugs);
-//
-//    vector<vector<Bug*>> board;
-//    vector<Bug*> bug_vector;
-
     Board(const vector<Bug *> &bugs);
+
 public:
     Board();
     void initialize_board(vector<Bug*> &bug_vector);

@@ -10,7 +10,7 @@
 class Leaf_Hopper: public Bug {
 
 public:
-    Leaf_Hopper(int id, pair<int, int> position, Direction dir, int size);
+    Leaf_Hopper(char bug_type, int id, pair<int, int> position, Direction dir, int size);
 
     void move() override;
     bool isWayBlocked() override;

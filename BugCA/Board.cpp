@@ -12,14 +12,7 @@ Board::Board(const vector<Bug*> &bugs) {
     bug_vector = bugs;
 }
 
-
-//Board::Board(){
-//    board.resize(10); //column
-//    for(int i=0; i<10; i++){
-//        board[i].resize(10);
-//    }
-//}
-
+// 10 rows
 Board::Board()
 {
     for (int j = 0; j < 10; ++j)
@@ -28,7 +21,7 @@ Board::Board()
     }
 }
 
-
+//Occupy the 10x10 board with Bugs from bug_vector
 void Board::initialize_board(vector<Bug *> &bugVec) {
     bug_vector = bugVec;   //prob
     if(bug_vector.empty()){
@@ -47,19 +40,20 @@ void Board::display_bugs(){
         cout << "\n";
         bug_vector.at(i) -> display_all_bug_details();
     }
+    cout << endl;
 }
 
 void Board::tap_board(){
     cout << "Tap" << endl;
+    //For every Column
     for(int i = 0; i < bug_vector.size(); i++){
-//        bug_vector.at(i) -> display_all_bug_details();
-
+        //For every Row
         for(int j = i + 1; j < bug_vector.size(); j++){
+            //If 2 bugs are on the same Cell
             if(bug_vector.at(i) -> getPosition().first == bug_vector.at(j) -> getPosition().first &&
                bug_vector.at(i) -> getPosition().second == bug_vector.at(j) -> getPosition().second){
-                //if collide
-//                cout << "Bug " << bug_vector.at(i)-> getId() << " collided with Bug " << bug_vector.at(j)->getId() << endl;
 
+                //If 2 bugs are alive
                 if(bug_vector.at(i) -> isAlive() && bug_vector.at(j) -> isAlive()){
                     //if i > j
                     if(bug_vector.at(i) -> getSize() > bug_vector.at(j) -> getSize()){
@@ -100,12 +94,11 @@ void Board::tap_board(){
                             bug_vector.at(i) -> setEatenBy(bug_vector.at(j) -> getId());
                         }
                     }
-
-                    //if die then stop moving
                 }
             }
         }
 
+        //To exclude and prevent Dead bugs from moving
         if(bug_vector.at(i) -> isAlive()){
             cout << "Before: " << endl;
             bug_vector.at(i) -> display_all_bug_details();
@@ -122,17 +115,9 @@ void Board::tap_board(){
 }
 
 void Board::display_life_history_of_all_bugs(){
-//    list<pair<int, int>> newPath;
     for(int i = 0; i<bug_vector.size(); i++){
-
-//        if(bug_vector.at(i) -> getPath().empty()){
-//            newPath = {{bug_vector.at(i) -> getPosition()}};
-//        }
         cout << "Bug ID " << bug_vector.at(i) -> getId() << ": ";
         for (auto it = bug_vector.at(i) -> getPath().begin(); it != bug_vector.at(i) -> getPath().end(); ++it){
-//            if(bug_vector.at(i) -> getHopLength()){// check if its crawler or hopper
-//
-//            }
             cout << "(" << it->first << ", " << it->second << ") ";
         }
         cout << "\n" << endl;
@@ -140,17 +125,16 @@ void Board::display_life_history_of_all_bugs(){
 }
 
 void Board::exit() {
-    time_t now = time(0); // get current date/time with respect to system
+    time_t now = time(0); // Get current date/time with respect to system
 
     struct tm* timeinfo = localtime(&now);
 
     char buffer[80];
     strftime(buffer, 80, "%Y-%m-%d_%H-%M-%S", timeinfo); // Formats date and time
 
-//    string outputFileName = "bug's_life_history_" + string(buffer) + ".out.txt"; // Include formatted time in the file name
-
     ofstream fout("bugs_life_history_" + string(buffer) + ".out.txt");
     if(fout.is_open()){
+        //For every Bug
         for(int i = 0; i<bug_vector.size(); i++){
             string header, path_desc, status, new_line;
             header = "Bug ID " + to_string(bug_vector.at(i)->getId()) + ": ";
@@ -166,12 +150,6 @@ void Board::exit() {
             new_line += "\n";
             fout << setw(10) << left << header << path_desc << status << new_line << endl;
         }
-//        time_t now = time(0); // get current dat/time with respect to system
-//
-//        char* dt = ctime(&now); // convert it into string
-//
-//        fout << "The local date and time is: " << dt << endl; // print local date and time
-
         fout.close();
         cout << "Data has been written to the file." << endl;
     }
@@ -182,10 +160,9 @@ void Board::exit() {
 }
 
 void Board::display_all_cells(){
-    for(int i = 1; i <= 10; ++i){ //which is 0 to 9, each row x-axis
-        for(int j = 1; j <= 10; ++j){ // y-axis
-//            string display = "(" + to_string(j) + ", " + to_string(i) + "): ";
-            cout << "(" << i << "," << j << "):"; // outputs cell id
+    for(int i = 1; i <= 10; ++i){ //Which is 0 to 9, each row X-axis
+        for(int j = 1; j <= 10; ++j){ // Y-axis
+            cout << "(" << i << "," << j << "):"; // Outputs cell id
             bool empty = true;
 
             for(auto & b : bug_vector){
@@ -194,8 +171,7 @@ void Board::display_all_cells(){
                     empty = false;
                 }
             }
-            if (empty == true)
-            {
+            if (empty == true){
                 cout << "--" << endl;
             }
         }
@@ -207,10 +183,11 @@ void Board::run_simulation() {
     bool last_bug_standing = false;
 
     do{
-        int num_bugs = 0; //refresh every cycle
+        int num_bugs = 0; //Refresh every cycle
         tap_board();
+
         // Pause the execution for 1 second
-        //this_thread::sleep_for(chrono::seconds(1));
+        this_thread::sleep_for(chrono::seconds(1));
 
         for(auto & b: bug_vector){
             if(b->isAlive()){

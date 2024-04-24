@@ -3,12 +3,11 @@
 //
 
 #include "Crawler.h"
+#include <iomanip> // e.g. setw(2)
 
-//Crawler::Crawler(int id, pair<int, int> position, Direction dir, int size):Bug(id, {x,y}, dir,size){
-//
-//}
 
-Crawler::Crawler(int id, pair<int, int> position, Direction dir, int size){
+Crawler::Crawler(char bug_type, int id, pair<int, int> position, Direction dir, int size){
+    this->bug_type = bug_type;
     this->id = id;
     this->position = position;
     this->dir = dir;
@@ -17,71 +16,57 @@ Crawler::Crawler(int id, pair<int, int> position, Direction dir, int size){
 
 
 void Crawler::move() {
-    if(isWayBlocked()) { //if blocked, then switch direction
+    if(isWayBlocked()) { //If Blocked, then switch Direction
         randomDir();
     }
-    else if(!isWayBlocked()){ //if not blocked, move
+    else if(!isWayBlocked()){ //If not Blocked, Move
         switch (dir) {
             case Direction::North:
-                position.second++;
-                if(position.second > 10){
-                    position.second = 10;
-                    path.push_back(getPosition());
-                    randomDir();
-                }
-                else if(position.second <=0){
-                    position.second = 1;
-                    path.push_back(getPosition());
-                    randomDir();
-                }
-                path.push_back(getPosition());
+                position.second--;
+                ten_by_ten_constrain();
                 break;
             case Direction::East:
                 position.first++;
-                if(position.first > 10){
-                    position.first = 10;
-                    path.push_back(getPosition());
-                    randomDir();
-                }
-                else if(position.first <= 0){
-                    position.first = 1;
-                    path.push_back(getPosition());
-                    randomDir();
-                }
-                path.push_back(getPosition());
+                ten_by_ten_constrain();
                 break;
             case Direction::South:
                 position.second--;
-                if(position.second > 10){
-                    position.second = 10;
-                    path.push_back(getPosition());
-                    randomDir();
-                }
-                else if(position.second <= 0){
-                    position.second = 1;
-                    path.push_back(getPosition());
-                    randomDir();
-                }
-                path.push_back(getPosition());
+                ten_by_ten_constrain();
                 break;
             case Direction::West:
                 position.first--;
-                if(position.first > 10){
-                    position.first = 10;
-                    path.push_back(getPosition());
-                    randomDir();
-                }
-                else if(position.first <= 0){
-                    position.first = 1;
-                    path.push_back(getPosition());
-                    randomDir();
-                }
-                path.push_back(getPosition());
+                ten_by_ten_constrain();
                 break;
         }
     }
 }
 
+//Make sure the Bug does not go out of bound (10x10)
+void Crawler::ten_by_ten_constrain(){
+    if(position.second > 10){   //Y > 10
+        position.second = 10;   //Y = 10
+        path.push_back(getPosition());
+        randomDir();
+    }
+    if(position.first > 10){    //X > 10
+        position.first = 10;    //X = 10
+        path.push_back(getPosition());
+        randomDir();
+    }
+    if(position.second <= 0){   //Y <= 0
+        position.second = 1;    //Y = 1
+        path.push_back(getPosition());
+        randomDir();
+    }
+    if(position.first <= 0){    //X <= 0
+        position.first = 1;     //X = 1
+        path.push_back(getPosition());
+        randomDir();
+    }
+    path.push_back(getPosition());
+}
+
+//Checks if Bugs are blocked by a wall
 bool Crawler::isWayBlocked(){
     int x = this->getPosition().first;
     int y = this->getPosition().second;
@@ -102,6 +87,7 @@ bool Crawler::isWayBlocked(){
     return false;
 }
 
+//If blocked by a wall, turn to a random direction (May face the wall again)
 void Crawler::randomDir() {
     srand(time(nullptr)); // Seed for rand() function
     int randDir = rand() % 4 + 1; // Generate a random number between 1 and 4
@@ -128,26 +114,14 @@ void Crawler::randomDir() {
 }
 
 void Crawler::display_all_bug_details() const {
+    cout << setw(17) << "Crawler, ID: " << setw(3) << id << ", Position (" << setw(2) << position.first
+         << ", " << setw(2) << position.second << "), Size: " << setw(2) << size << ", Direction: "
+         << setw(5) << Direction_string(dir);
 
-//        cout << "\n";
-        cout << "Crawler, ID: " + to_string(id) + ", Position (" +to_string(position.first) + ", "
-                +to_string(position.second) + ")" + ", Size: " + to_string(size) + ", Direction: " +
-                Direction_string(dir);
-        if (alive)
-        {
+    if (alive){
             cout << ", Alive.";
-        }
-        else
-        {
-            cout << ", Dead.";
-        }
-//    cout << "\n";
+    }
+    else{
+        cout << ", Dead.";
+    }
 }
-
-//void Crawler::one_or_more_bug() {
-//    if(alive){
-//        getPosition() ;
-//
-//        for(int i = 0; i < bug.vector)
-//    }
-//}

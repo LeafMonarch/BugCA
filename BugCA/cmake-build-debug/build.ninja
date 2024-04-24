@@ -97,6 +97,14 @@ build CMakeFiles/BugCA.dir/Leaf_Hopper.cpp.obj: CXX_COMPILER__BugCA_unscanned_De
   OBJECT_DIR = CMakeFiles\BugCA.dir
   OBJECT_FILE_DIR = CMakeFiles\BugCA.dir
 
+build CMakeFiles/BugCA.dir/Super_Bug.cpp.obj: CXX_COMPILER__BugCA_unscanned_Debug C$:/Users/USER/OneDrive$ -$ Dundalk$ Institute$ of$ Technology/Better$ C++/BugCA/Super_Bug.cpp || cmake_object_order_depends_target_BugCA
+  DEFINES = -DSFML_STATIC
+  DEP_FILE = CMakeFiles\BugCA.dir\Super_Bug.cpp.obj.d
+  FLAGS = -g -fdiagnostics-color=always
+  INCLUDES = -isystem C:/SFML-2.6.1/include
+  OBJECT_DIR = CMakeFiles\BugCA.dir
+  OBJECT_FILE_DIR = CMakeFiles\BugCA.dir
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target BugCA
@@ -105,7 +113,7 @@ build CMakeFiles/BugCA.dir/Leaf_Hopper.cpp.obj: CXX_COMPILER__BugCA_unscanned_De
 #############################################
 # Link the executable BugCA.exe
 
-build BugCA.exe: CXX_EXECUTABLE_LINKER__BugCA_Debug CMakeFiles/BugCA.dir/main.cpp.obj CMakeFiles/BugCA.dir/Bug.cpp.obj CMakeFiles/BugCA.dir/Hopper.cpp.obj CMakeFiles/BugCA.dir/Crawler.cpp.obj CMakeFiles/BugCA.dir/Board.cpp.obj CMakeFiles/BugCA.dir/Leaf_Hopper.cpp.obj | C$:/SFML-2.6.1/lib/libsfml-system-s-d.a C$:/SFML-2.6.1/lib/libsfml-window-s-d.a C$:/SFML-2.6.1/lib/libsfml-graphics-s-d.a C$:/SFML-2.6.1/lib/libsfml-audio-s-d.a C$:/SFML-2.6.1/lib/libsfml-window-s-d.a C$:/SFML-2.6.1/lib/libfreetype.a C$:/SFML-2.6.1/lib/libsfml-system-s-d.a C$:/SFML-2.6.1/lib/libopenal32.a C$:/SFML-2.6.1/lib/libvorbisfile.a C$:/SFML-2.6.1/lib/libvorbisenc.a C$:/SFML-2.6.1/lib/libvorbis.a C$:/SFML-2.6.1/lib/libogg.a C$:/SFML-2.6.1/lib/libFLAC.a
+build BugCA.exe: CXX_EXECUTABLE_LINKER__BugCA_Debug CMakeFiles/BugCA.dir/main.cpp.obj CMakeFiles/BugCA.dir/Bug.cpp.obj CMakeFiles/BugCA.dir/Hopper.cpp.obj CMakeFiles/BugCA.dir/Crawler.cpp.obj CMakeFiles/BugCA.dir/Board.cpp.obj CMakeFiles/BugCA.dir/Leaf_Hopper.cpp.obj CMakeFiles/BugCA.dir/Super_Bug.cpp.obj | C$:/SFML-2.6.1/lib/libsfml-system-s-d.a C$:/SFML-2.6.1/lib/libsfml-window-s-d.a C$:/SFML-2.6.1/lib/libsfml-graphics-s-d.a C$:/SFML-2.6.1/lib/libsfml-audio-s-d.a C$:/SFML-2.6.1/lib/libsfml-window-s-d.a C$:/SFML-2.6.1/lib/libfreetype.a C$:/SFML-2.6.1/lib/libsfml-system-s-d.a C$:/SFML-2.6.1/lib/libopenal32.a C$:/SFML-2.6.1/lib/libvorbisfile.a C$:/SFML-2.6.1/lib/libvorbisenc.a C$:/SFML-2.6.1/lib/libvorbis.a C$:/SFML-2.6.1/lib/libogg.a C$:/SFML-2.6.1/lib/libFLAC.a
   FLAGS = -g
   LINK_LIBRARIES = C:/SFML-2.6.1/lib/libsfml-system-s-d.a  C:/SFML-2.6.1/lib/libsfml-window-s-d.a  C:/SFML-2.6.1/lib/libsfml-graphics-s-d.a  C:/SFML-2.6.1/lib/libsfml-audio-s-d.a  C:/SFML-2.6.1/lib/libsfml-window-s-d.a  -lOpenGL32  -lgdi32  C:/SFML-2.6.1/lib/libfreetype.a  C:/SFML-2.6.1/lib/libsfml-system-s-d.a  -lwinmm  C:/SFML-2.6.1/lib/libopenal32.a  C:/SFML-2.6.1/lib/libvorbisfile.a  C:/SFML-2.6.1/lib/libvorbisenc.a  C:/SFML-2.6.1/lib/libvorbis.a  C:/SFML-2.6.1/lib/libogg.a  C:/SFML-2.6.1/lib/libFLAC.a  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\BugCA.dir
