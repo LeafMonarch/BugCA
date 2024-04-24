@@ -66,226 +66,231 @@ vector<tile> tiles;
 void initializeBug(vector<Bug *> &bug_vector);
 //SFML Tap to move all bugs
 void gui_tap_move(vector<Bug *> &bug_vector);
+//Show if window should returr Winner Bug's ID
+int displayTitleWin(vector<Bug *> &bug_vector);
+
+    int main() {
+        vector<Bug *> bug_vector;
+        auto *board = new Board();
+        bool end = false;
+        int menu_option;
+        load_data_from_file(bug_vector, "bugs.txt", board);
 
 
-int main() {
-    vector<Bug*> bug_vector;
-    auto *board = new Board();
-    bool end = false;
-    int menu_option;
-    load_data_from_file(bug_vector, "bugs.txt", board);
+        do {
+            cout << "Menu Items" << endl;
+            cout << "1. Initialize Bug Board (load data from file)" << endl;
+            cout << "2. Display all Bugs" << endl;
+            cout << "3. Find a Bug (given an id)" << endl;
+            cout << "4. Tap the Bug Board (causes move all, then fight/eat)" << endl;
+            cout << "5. Display Life History of all Bugs (path taken)" << endl;
+            cout << "6. Exit" << endl;
+            cout << "7. Display all Cells" << endl;
+            cout << "8. Run Simulation" << endl;
+            cout << "9. Implement a GUI for the project using the SFML library." << endl;
 
+            cout << "Please select an option . . . " << endl;
+            cin >> menu_option;
 
-    do {
-        cout << "Menu Items" << endl;
-        cout << "1. Initialize Bug Board (load data from file)" << endl;
-        cout << "2. Display all Bugs" << endl;
-        cout << "3. Find a Bug (given an id)" << endl;
-        cout << "4. Tap the Bug Board (causes move all, then fight/eat)" << endl;
-        cout << "5. Display Life History of all Bugs (path taken)" << endl;
-        cout << "6. Exit" << endl;
-        cout << "7. Display all Cells" << endl;
-        cout << "8. Run Simulation" << endl;
-        cout << "9. Implement a GUI for the project using the SFML library." << endl;
+            switch (menu_option) {
+                case 1:
+                    board->initialize_board(bug_vector);
+                    break;
+                case 2:
+                    board->display_bugs();
+                    break;
 
-        cout << "Please select an option . . . " << endl;
-        cin >> menu_option;
+                case 3:
+                    find_bug_by_id(bug_vector);
+                    break;
 
-        switch(menu_option) {
-            case 1:
-                board -> initialize_board(bug_vector);
-                break;
-            case 2:
-                board -> display_bugs();
-                break;
+                case 4:
+                    board->tap_board();
+                    break;
 
-            case 3:
-                find_bug_by_id(bug_vector);
-                break;
+                case 5:
+                    board->display_life_history_of_all_bugs();
+                    break;
 
-            case 4:
-                board -> tap_board();
-                break;
+                case 6:
+                    board->exit();
+                    break;
 
-            case 5:
-                board -> display_life_history_of_all_bugs();
-                break;
+                case 7:
+                    board->display_all_cells();
+                    break;
 
-            case 6:
-                board -> exit();
-                break;
+                case 8:
+                    board->run_simulation();
+                    break;
 
-            case 7:
-                board -> display_all_cells();
-                break;
+                case 9:
+                    graphic_user_interface(bug_vector);
+                    break;
 
-            case 8:
-                board -> run_simulation();
-                break;
-
-            case 9:
-                graphic_user_interface(bug_vector);
-                break;
-
-            case 11:
-                end = true;
-                break;
-        }
-    }while(!end);
-    return 0;
-}
+                case 11:
+                    end = true;
+                    break;
+            }
+        } while (!end);
+        return 0;
+    }
 
 //Load data from bugs.txt and create bugs objects accordingly
-void load_data_from_file(vector<Bug *> &bug_vector, const string &file_name, Board *board){
-    ifstream fin(file_name);
-    if(fin){
-        cout << "File opened successfully" << endl;
-        while(!fin.eof()){
-            string input_line; // Stores each line of bugs.txt
-            while(getline(fin, input_line)){
-                stringstream string_stream1(input_line); //stringstream reads in a line of data as if it's a string
-                string token; // eg: Crawler, 2, 3, ...
+    void load_data_from_file(vector<Bug *> &bug_vector, const string &file_name, Board *board) {
+        ifstream fin(file_name);
+        if (fin) {
+            cout << "File opened successfully" << endl;
+            while (!fin.eof()) {
+                string input_line; // Stores each line of bugs.txt
+                while (getline(fin, input_line)) {
+                    stringstream string_stream1(input_line); //stringstream reads in a line of data as if it's a string
+                    string token; // eg: Crawler, 2, 3, ...
 
-                vector<string> tokens;
-                while(getline(string_stream1,token, ';')){
-                    tokens.push_back(token);
-                }
-                char bug_type = '\0';
-                //  6 = Crawler/Leaf_Hopper/Super_Bug, 7 = Hopper
-                if(tokens.size() == 6 || tokens.size() == 7){
-                    bug_type = tokens[0][0]; // Assuming bug type is a single character
-
-                    int id = stoi(tokens[1]); // stoi stands for string to integer
-                    int x = stoi(tokens[2]);
-                    int y = stoi(tokens[3]);
-                    int dir = stoi(tokens[4]);
-                    int size = stoi(tokens[5]);
-                    int hop_length;
-                    if(tokens.size()==7){
-                        hop_length = stoi(tokens[6]);
+                    vector<string> tokens;
+                    while (getline(string_stream1, token, ';')) {
+                        tokens.push_back(token);
                     }
+                    char bug_type = '\0';
+                    //  6 = Crawler/Leaf_Hopper/Super_Bug, 7 = Hopper
+                    if (tokens.size() == 6 || tokens.size() == 7) {
+                        bug_type = tokens[0][0]; // Assuming bug type is a single character
 
-                    // Create Bug object based on bug_type
-                    Bug* bug = nullptr;
-                    switch (bug_type) {
-                        case 'H': { // Hopper
-                            bug = new Hopper(bug_type, id, make_pair(x, y), static_cast<Direction>(dir), size, hop_length);
-                            break;
+                        int id = stoi(tokens[1]); // stoi stands for string to integer
+                        int x = stoi(tokens[2]);
+                        int y = stoi(tokens[3]);
+                        int dir = stoi(tokens[4]);
+                        int size = stoi(tokens[5]);
+                        int hop_length;
+                        if (tokens.size() == 7) {
+                            hop_length = stoi(tokens[6]);
                         }
-                        case 'C': { // Crawler
-                            bug = new Crawler(bug_type, id, make_pair(x, y), static_cast<Direction>(dir), size);
-                            break;
+
+                        // Create Bug object based on bug_type
+                        Bug *bug = nullptr;
+                        switch (bug_type) {
+                            case 'H': { // Hopper
+                                bug = new Hopper(bug_type, id, make_pair(x, y), static_cast<Direction>(dir), size,
+                                                 hop_length);
+                                break;
+                            }
+                            case 'C': { // Crawler
+                                bug = new Crawler(bug_type, id, make_pair(x, y), static_cast<Direction>(dir), size);
+                                break;
+                            }
+                            case 'L': { // Leaf_Hopper
+                                bug = new Leaf_Hopper(bug_type, id, make_pair(x, y), static_cast<Direction>(dir), size);
+                                break;
+                            }
+                            case 'S': { // Super_Bug
+                                bug = new Super_Bug(bug_type, id, make_pair(x, y), static_cast<Direction>(dir), size);
+                                break;
+                            }
+                            default:
+                                cout << "Invalid bug type: " << bug_type << endl;
+                                break;
                         }
-                        case 'L': { // Leaf_Hopper
-                            bug = new Leaf_Hopper(bug_type, id, make_pair(x, y), static_cast<Direction>(dir), size);
-                            break;
+                        if (bug != nullptr) {
+                            bug_vector.push_back(bug);
                         }
-                        case 'S': { // Super_Bug
-                            bug = new Super_Bug(bug_type, id, make_pair(x, y), static_cast<Direction>(dir), size);
-                            break;
-                        }
-                        default:
-                            cout << "Invalid bug type: " << bug_type << endl;
-                            break;
-                    }
-                    if (bug != nullptr) {
-                        bug_vector.push_back(bug);
                     }
                 }
             }
-        }
-        fin.close();
-    } else {
-        cout << "Failed to open file." << endl;
-    }
-}
-
-void find_bug_by_id(vector<Bug *> &bug_vector){
-    int bug_id;
-    cout << "Please enter a bug id: " << endl;
-    cin >> bug_id;
-    for(auto b: bug_vector){
-        if(bug_id == b->getId()){
-            b->display_all_bug_details();
+            fin.close();
+        } else {
+            cout << "Failed to open file." << endl;
         }
     }
-    cout << "\n";
-    cout << "\n";
-}
 
-void graphic_user_interface(vector<Bug *> &bug_vector) {
-    sf::RenderWindow window(sf::VideoMode(960, 960), "SFML works!");
-
-    vector<sf::RectangleShape> bg;  //Creating Board
-    for (int r = 0; r <= 11; ++r) {
-        for (int c = 0; c <= 11; ++c) {
-            sf::RectangleShape shape;
-            //The four sides of the 10x10 Board
-            if (r == 0 || c == 0 || r == 11 || c == 11) {
-                shape.setFillColor(Color::Black);
+    void find_bug_by_id(vector<Bug *> &bug_vector) {
+        int bug_id;
+        cout << "Please enter a bug id: " << endl;
+        cin >> bug_id;
+        for (auto b: bug_vector) {
+            if (bug_id == b->getId()) {
+                b->display_all_bug_details();
             }
-            //The 10x10 Board
-            else {
-                shape.setPosition(r * 80-5, c * 80-5); //set position of individual squares on the background
-                shape.setSize(Vector2f(80, 80)); //set size of the individual square
-                shape.setFillColor((r + c) % 2 == 0 ? Color(181, 230, 29): Color::White); //Tenary Operator
-            }
-            bg.push_back(shape);
         }
+        cout << "\n";
+        cout << "\n";
     }
-    initializeBug(bug_vector); //Populate the Board with Bugs
 
-    while (window.isOpen()) {
-        sf::Event event;
-        while (window.pollEvent(event)) {
-            if (event.type == sf::Event::Closed) {//The Close Window Button
-                window.close();
+    void graphic_user_interface(vector<Bug *> &bug_vector) {
+        sf::RenderWindow window(sf::VideoMode(960, 960), "SFML works!");
+
+        vector<sf::RectangleShape> bg;  //Creating Board
+        for (int r = 0; r <= 11; ++r) {
+            for (int c = 0; c <= 11; ++c) {
+                sf::RectangleShape shape;
+                //The four sides of the 10x10 Board
+                if (r == 0 || c == 0 || r == 11 || c == 11) {
+                    shape.setFillColor(Color::Black);
+                }
+                    //The 10x10 Board
+                else {
+                    shape.setPosition(r * 80 - 5, c * 80 - 5); //set position of individual squares on the background
+                    shape.setSize(Vector2f(80, 80)); //set size of the individual square
+                    shape.setFillColor((r + c) % 2 == 0 ? Color(181, 230, 29) : Color::White); //Tenary Operator
+                }
+                bg.push_back(shape);
             }
-            if (event.type == sf::Event::MouseButtonPressed) {//If Tap on SFML window
-                gui_tap_move(bug_vector);
-                initializeBug(bug_vector);
-            }
-            //If Keys are pressed
-            else if (event.type == sf::Event::KeyPressed) {
-                if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
-                    // Handle W key press, Super Bug Moves Up/North
-                    for(auto & b : bug_vector){
-                        if(b -> getBugType()=='S'){
-                            b ->setDir(Direction::North);
-                        }
-                    }
+        }
+        initializeBug(bug_vector); //Populate the Board with Bugs
+
+        while (window.isOpen()) {
+            sf::Event event;
+            while (window.pollEvent(event)) {
+                if (event.type == sf::Event::Closed) {//The Close Window Button
+                    window.close();
+                }
+                if (event.type == sf::Event::MouseButtonPressed) {//If Tap on SFML window
                     gui_tap_move(bug_vector);
                     initializeBug(bug_vector);
                 }
-                else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
-                    // Handle A key press, Super Bug Moves Left/West
-                    for(auto & b : bug_vector){
-                        if(b -> getBugType()=='S'){
-                            b ->setDir(Direction::West);
+                    //If Keys are pressed
+                else if (event.type == sf::Event::KeyPressed) {
+                    if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
+                        // Handle W key press, Super Bug Moves Up/North
+                        for (auto &b: bug_vector) {
+                            if (b->getBugType() == 'S') {
+                                b->setDir(Direction::North);
+                            }
                         }
+                        gui_tap_move(bug_vector);
+                        initializeBug(bug_vector);
+                    } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
+                        // Handle A key press, Super Bug Moves Left/West
+                        for (auto &b: bug_vector) {
+                            if (b->getBugType() == 'S') {
+                                b->setDir(Direction::West);
+                            }
+                        }
+                        gui_tap_move(bug_vector);
+                        initializeBug(bug_vector);
+                    } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
+                        // Handle S key press, Super Bug Moves Down/South
+                        for (auto &b: bug_vector) {
+                            if (b->getBugType() == 'S') {
+                                b->setDir(Direction::South);
+                            }
+                        }
+                        gui_tap_move(bug_vector);
+                        initializeBug(bug_vector);
+                    } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
+                        // Handle D key press, Super Bug Moves Right/East
+                        for (auto &b: bug_vector) {
+                            if (b->getBugType() == 'S') {
+                                b->setDir(Direction::East);
+                            }
+                        }
+                        gui_tap_move(bug_vector);
+                        initializeBug(bug_vector);
                     }
-                    gui_tap_move(bug_vector);
-                    initializeBug(bug_vector);
                 }
-                else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
-                    // Handle S key press, Super Bug Moves Down/South
-                    for(auto & b : bug_vector){
-                        if(b -> getBugType()=='S'){
-                            b ->setDir(Direction::South);
-                        }
-                    }
-                    gui_tap_move(bug_vector);
-                    initializeBug(bug_vector);
-                }
-                else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
-                    // Handle D key press, Super Bug Moves Right/East
-                    for(auto & b : bug_vector){
-                        if(b -> getBugType()=='S'){
-                            b ->setDir(Direction::East);
-                        }
-                    }
-                    gui_tap_move(bug_vector);
-                    initializeBug(bug_vector);
+                int bugWinner = displayTitleWin(bug_vector);
+                if (displayTitleWin(bug_vector) != 0) {
+                    string titleWinning = "Bug ID: " + to_string(bugWinner) + " WON!!!";
+                    window.setTitle(titleWinning);
                 }
             }
             window.clear();
@@ -300,7 +305,7 @@ void graphic_user_interface(vector<Bug *> &bug_vector) {
             window.display();
         }
     }
-}
+
 
 void initializeBug(vector<Bug *> &bug_vector){
     for(int r = 0; r <= 11; ++r){
@@ -347,3 +352,20 @@ void gui_tap_move(vector<Bug *> &bug_vector){
     board -> initialize_board(bug_vector);
     board -> tap_board();
 }
+
+int displayTitleWin(vector<Bug *> &bug_vector){
+        int numAlive = 0;
+        int bugWinner = 0;
+        for(auto & b : bug_vector){
+            if(b -> isAlive()){
+                numAlive++;
+                bugWinner = b -> getId();
+            }
+        }
+        if(numAlive==1){
+            return bugWinner;
+        }
+        else{
+            return 0;
+        };
+};
